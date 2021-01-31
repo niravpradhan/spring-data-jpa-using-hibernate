@@ -23,6 +23,7 @@
         <module>productdata</module>
         <module>id-generators</module>
         <module>assignment2-id-generators</module>
+        <module>assignment3-finder-methods-assignment</module>
     </modules>
 
 </project>

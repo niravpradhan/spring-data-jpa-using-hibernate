@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -57,6 +59,50 @@ class ProductdataApplicationTests {
     @Test
     void testCount() {
         System.out.println("Total Records=" + repository.count());
+    }
+    
+    @Test
+    void testFindByName() {
+        List<Product> products = repository.findByName("IWatch");
+        assertThat(products.size(), is(equalTo(1)));
+        products.forEach(System.out::println);
+    }
+
+    @Test
+    void testFindByNameAndDescription() {
+        List<Product> products = repository.findByNameAndDesc("TV", "From Samsung Inc");
+        assertThat(products.size(), is(equalTo(1)));
+        products.forEach(System.out::println);
+    }
+
+    @Test
+    void testFindByPriceGreaterThanEqual() {
+        List<Product> products = repository.findByPriceGreaterThanEqual(1500d);
+        products.forEach(System.out::println);
+    }
+
+    @Test
+    void testFindByDescContains() {
+        List<Product> products = repository.findByDescContains("LG");
+        products.forEach(System.out::println);
+    }
+
+    @Test
+    void testFindByPriceBetween() {
+        List<Product> products = repository.findByPriceBetween(1000d, 2000d);
+        products.forEach(System.out::println);
+    }
+
+    @Test
+    void testFindByDescLike() {
+        List<Product> products = repository.findByDescLike("%LG%");
+        products.forEach(System.out::println);
+    }
+
+    @Test
+    void testFindByIdIn() {
+        List<Product> products = repository.findByIdIn(List.of(1, 2));
+        products.forEach(System.out::println);
     }
 }
 
