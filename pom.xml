@@ -18,4 +18,11 @@
         <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
     </properties>
 
+    <modules>
+        <module>customerdata</module>
+        <module>productdata</module>
+        <module>id-generators</module>
+        <module>assignment2-id-generators</module>
+    </modules>
+
 </project>
