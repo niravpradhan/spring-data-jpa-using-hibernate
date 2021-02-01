@@ -2,14 +2,17 @@ package me.niravpradhan.customerdata;
 
 import me.niravpradhan.customerdata.entitiies.Customer;
 import me.niravpradhan.customerdata.repos.CustomerRepository;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -65,11 +68,20 @@ class CustomerdataApplicationTests {
     @Test
     @Transactional
     @Rollback(false)
+    @Order(5)
     void test_assignment4_jpql_update_customer_email_by_id() {
         repository.updateCustomerEmailById("nirav.pradhan@gmail.com", 1);
 
         repository.findById(1).ifPresent(c -> {
             assertThat(c.getEmail(), is(equalTo("nirav.pradhan@gmail.com")));
         });
+    }
+
+    @Test
+    void test_findAll_assignemnt5_paging_and_sorting() {
+        Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Order.desc("id")));
+
+        List<Customer> results = repository.findAll(pageable);
+        results.forEach(System.out::println);
     }
 }

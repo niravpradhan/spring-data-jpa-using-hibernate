@@ -5,6 +5,10 @@ import me.niravpradhan.springdata.repos.StudentRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,5 +78,12 @@ class JpqlAndNativeQueriesApplicationTests {
     @Rollback(false)
     void test_deleteAllByFirstName() {
         repository.deleteAllByFirstName("James");
+    }
+
+    @Test
+    void test_findAllStudents_paging() {
+        Pageable pageable = PageRequest.of(0, 5, Sort.by(Order.asc("firstName")));
+        List<Student> students = repository.findAllStudents(pageable);
+        students.forEach(System.out::println);
     }
 }

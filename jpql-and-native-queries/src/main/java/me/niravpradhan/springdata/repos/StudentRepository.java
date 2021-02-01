@@ -1,6 +1,7 @@
 package me.niravpradhan.springdata.repos;
 
 import me.niravpradhan.springdata.entities.Student;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -27,4 +28,7 @@ public interface StudentRepository extends CrudRepository<Student, Long> {
     void deleteStudentsByFirstName(@Param("firstName") String firstName);
 
     void deleteAllByFirstName(String firstName);
+
+    @Query("from Student")
+    List<Student> findAllStudents(Pageable pageable);
 }
