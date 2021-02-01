@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -58,5 +60,16 @@ class CustomerdataApplicationTests {
         if (repository.existsById(1)) {
             repository.deleteById(1);
         }
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    void test_assignment4_jpql_update_customer_email_by_id() {
+        repository.updateCustomerEmailById("nirav.pradhan@gmail.com", 1);
+
+        repository.findById(1).ifPresent(c -> {
+            assertThat(c.getEmail(), is(equalTo("nirav.pradhan@gmail.com")));
+        });
     }
 }

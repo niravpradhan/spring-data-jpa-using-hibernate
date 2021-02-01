@@ -23,6 +23,7 @@
         <module>productdata</module>
         <module>id-generators</module>
         <module>paging-and-sorting</module>
+        <module>jpql-and-native-queries</module>
         <module>assignment2-id-generators</module>
         <module>assignment3-finder-methods-assignment</module>
     </modules>
