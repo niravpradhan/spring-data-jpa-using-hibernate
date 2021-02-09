@@ -86,4 +86,16 @@ class JpqlAndNativeQueriesApplicationTests {
         List<Student> students = repository.findAllStudents(pageable);
         students.forEach(System.out::println);
     }
+
+    @Test
+    void test_findAllStudentsNQ() {
+        List<Student> students = repository.findAllStudentsNQ();
+        students.forEach(System.out::println);
+    }
+
+    @Test
+    void test_findAllByFirstNameNQ() {
+        List<Student> students = repository.findAllByFirstNameNQ("James");
+        students.forEach(System.out::println);
+    }
 }

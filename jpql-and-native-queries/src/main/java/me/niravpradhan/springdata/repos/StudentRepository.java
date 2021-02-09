@@ -31,4 +31,10 @@ public interface StudentRepository extends CrudRepository<Student, Long> {
 
     @Query("from Student")
     List<Student> findAllStudents(Pageable pageable);
+
+    @Query(value = "select * from student", nativeQuery = true)
+    List<Student> findAllStudentsNQ();
+
+    @Query(value = "select * from student where fname = :firstName", nativeQuery = true)
+    List<Student> findAllByFirstNameNQ(@Param("firstName") String firstName);
 }

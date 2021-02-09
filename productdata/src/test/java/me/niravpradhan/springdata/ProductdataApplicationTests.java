@@ -2,10 +2,13 @@ package me.niravpradhan.springdata;
 
 import me.niravpradhan.springdata.entities.Product;
 import me.niravpradhan.springdata.repos.ProductRepository;
+import org.hibernate.Session;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -17,6 +20,9 @@ class ProductdataApplicationTests {
 
     @Autowired
     ProductRepository repository;
+
+    @Autowired
+    EntityManager entityManager;
 
     @Test
     void contextLoads() {
@@ -103,6 +109,26 @@ class ProductdataApplicationTests {
     void testFindByIdIn() {
         List<Product> products = repository.findByIdIn(List.of(1, 2));
         products.forEach(System.out::println);
+    }
+
+    @Test
+    @Transactional
+    void test_level1_caching() {
+        repository.findById(2);
+        repository.findById(2);
+    }
+
+    @Test
+    @Transactional
+    void test_caching() {
+        Session session = entityManager.unwrap(Session.class);
+        Product product = repository.findById(2).get();
+
+        repository.findById(2);
+
+        session.evict(product);
+
+        repository.findById(2);
     }
 }
 

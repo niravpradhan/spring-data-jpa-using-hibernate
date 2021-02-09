@@ -19,13 +19,18 @@
     </properties>
 
     <modules>
+        <module>associations</module>
+        <module>component-mappings</module>
         <module>customerdata</module>
         <module>productdata</module>
         <module>id-generators</module>
         <module>paging-and-sorting</module>
         <module>jpql-and-native-queries</module>
+        <module>hibernate-inheritance</module>
         <module>assignment2-id-generators</module>
         <module>assignment3-finder-methods-assignment</module>
+        <module>transaction-management</module>
+        <module>file-data</module>
     </modules>
 
 </project>
